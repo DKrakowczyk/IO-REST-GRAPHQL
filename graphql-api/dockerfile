@@ -1,0 +1,17 @@
+FROM node:10.14.2
+RUN apt-get update
+
+WORKDIR /graphql-api
+
+COPY package.json .
+COPY tsconfig.json .
+RUN npm install node-gyp -g
+RUN rm -rf node_modules
+RUN npm install
+RUN npm i nodemon -g
+RUN npm i ts-node -g
+RUN npm i typescript -g
+COPY . .
+EXPOSE 5000
+
+CMD ["npm", "start"]

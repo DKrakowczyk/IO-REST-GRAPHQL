@@ -1,23 +1,23 @@
-const express = require("express");
-import "reflect-metadata";
+const express = require('express');
+import 'reflect-metadata';
 
-import Container from "typedi";
-import { ApolloServer } from "apollo-server-express";
-import { connect } from "mongoose";
-import { buildSchema } from "type-graphql";
-import { DataResolver } from "./modules/resolvers/data.resolver";
+import Container from 'typedi';
+import { ApolloServer } from 'apollo-server-express';
+import { connect } from 'mongoose';
+import { buildSchema } from 'type-graphql';
+import { DataResolver } from './modules/resolvers/data.resolver';
 // Resolvers
 // AuthChecker
 declare const module: any;
 
 async function bootstrap() {
   try {
-    const mongoose = await connect("mongodb://localhost:27017/store", {
+    const mongoose = await connect(process.env.MONGO_URI, {
       useNewUrlParser: true
     });
 
     const app = express();
-    const path = "/graphql";
+    const path = '/graphql';
 
     const schema = await buildSchema({
       container: Container,
